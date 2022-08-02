@@ -1,0 +1,3 @@
+# Animations: https://lottiefiles.com/
+# Emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
+# Icons: https://icons.getbootstrap.com/
