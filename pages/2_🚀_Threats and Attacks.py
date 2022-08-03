@@ -4,12 +4,21 @@ from streamlit_lottie import st_lottie
 from PIL import Image
 from streamlit_option_menu import option_menu
 
+# Emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 st.set_page_config(
     page_title="MELATI",
     page_icon=":blossom:",
     layout="wide"
 )
 
+# ---- LOCAL CSS ----
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("style/style.css")
+
+# Lottie Files: https://lottiefiles.com/
 # ---- LOAD ASSETS ----
 def load_lottiefile(filepath: str):
     with open(filepath, "r") as f:
@@ -44,9 +53,10 @@ selected = option_menu(
     },
 )
 
-# ---- THREATS ----
+# ---- THREATS SECTION ----
 if selected == "Cyber Threats":
     st.title("Cyber Threats")
+    st.markdown("##")
     with st.container():
         left_column, right_column = st.columns(2)
         with left_column:
@@ -98,9 +108,10 @@ if selected == "Cyber Threats":
             """
         )
 
-# ---- ATTACKS ----
+# ---- ATTACKS SECTION ----
 if selected == "Cyber Attacks":
     st.title("Cyber Attacks")
+    st.markdown("##")
     with st.container():
         left_column, right_column = st.columns(2)
         with left_column:
@@ -148,13 +159,3 @@ if selected == "Cyber Attacks":
             elif types == "Zero-day Exploit":
                 st.info("Kerentanan dalam sistem atau perangkat yang telah diungkapkan tetapi belum ditambal.")
             st_lottie(lottie_attacks_2, height=300, key="attacks_2")
-
-# ---- HIDE STREAMLIT STYLE ----
-hide_st_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_st_style, unsafe_allow_html=True)

@@ -1,16 +1,34 @@
+import streamlit as st
 import pandas as pd
 import plotly.express as px
-import streamlit as st
 import base64
 from io import StringIO, BytesIO
 
+# Emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 st.set_page_config(
     page_title="MELATI",
     page_icon=":blossom:",
     layout="wide"
 )
 
+# ---- LOCAL CSS ----
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("style/style.css")
+
 # ---- DOWNLOAD LINK ----
+# Credit Excel: https://discuss.streamlit.io/t/how-to-add-a-download-excel-csv-function-to-a-button/4474/5
+def generate_excel_download_link(df):
+    towrite = BytesIO()
+    df.to_excel(towrite, encoding="utf-8", index=False, header=True)  # write to BytesIO buffer
+    towrite.seek(0)  # reset pointer
+    b64 = base64.b64encode(towrite.read()).decode()
+    href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="data_table.xlsx">Download Excel File</a>'
+    return st.markdown(href, unsafe_allow_html=True)
+
+# Credit Plotly: https://discuss.streamlit.io/t/download-plotly-plot-as-html/4426/2
 def generate_html_download_link(fig):
     towrite = StringIO()
     fig.write_html(towrite, include_plotlyjs="cdn")
@@ -52,6 +70,7 @@ df_selection = df.query(
     "Tahun == @tahun & Bulan == @bulan & Threats == @threats"
 )
 
+# Icons: https://icons.getbootstrap.com/
 # ---- MAINPAGE ----
 st.title(":bar_chart: Threats Dashboard")
 st.markdown("##")
@@ -60,27 +79,32 @@ st.markdown("##")
 jumlah = int(df_selection["Jumlah"].sum())
 
 with st.container():
+    st.write("---")
     left_column, middle_column, right_column = st.columns(3)
     with left_column:
         st.subheader("Tahun : ")
         st.subheader(tahun)
     with middle_column:
         st.subheader("Bulan : ")
-        st.write(bulan)
+        st.caption(bulan)
     with right_column:
         st.subheader("Threats : ")
-        st.write(threats)
-
-st.write("---")
+        st.caption(threats)
 
 with st.container():
+    st.write("---")
     left_column, right_column = st.columns(2)
     with left_column:
         st.subheader("Total Anomali Trafik :")
     with right_column:
         st.subheader(f"{jumlah:,}")
 
-st.write("---")
+# ---- DATAFRAME ----
+with st.container():
+    st.write("---")
+    if st.checkbox("Tampilkan dataframe"):
+        st.dataframe(df_selection)
+    generate_excel_download_link(df_selection)
 
 # ---- TOTAL BY THREATS [BAR CHART] ----
 total_by_threats = (
@@ -118,20 +142,12 @@ fig_tahun_bulan.update_layout(
     yaxis=(dict(showgrid=False)),
 )
 
-left_column, right_column = st.columns(2)
-with left_column:
-    st.plotly_chart(fig_threats, use_container_width=True)
-    generate_html_download_link(fig_threats)
-with right_column:
-    st.plotly_chart(fig_tahun_bulan, use_container_width=True)
-    generate_html_download_link(fig_tahun_bulan)
-
-# ---- HIDE STREAMLIT STYLE ----
-hide_st_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_st_style, unsafe_allow_html=True)
+with st.container():
+    st.write("---")
+    left_column, right_column = st.columns(2)
+    with left_column:
+        st.plotly_chart(fig_threats, use_container_width=True)
+        generate_html_download_link(fig_threats)
+    with right_column:
+        st.plotly_chart(fig_tahun_bulan, use_container_width=True)
+        generate_html_download_link(fig_tahun_bulan)

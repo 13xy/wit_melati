@@ -2,12 +2,21 @@ import json
 import streamlit as st
 from streamlit_lottie import st_lottie
 
+# Emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 st.set_page_config(
     page_title="MELATI",
     page_icon=":blossom:",
     layout="wide"
 )
 
+# ---- LOCAL CSS ----
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("style/style.css")
+
+# Lottie Files: https://lottiefiles.com/
 # ---- LOAD ASSETS ----
 def load_lottiefile(filepath: str):
     with open(filepath, "r") as f:
@@ -27,8 +36,10 @@ with st.sidebar:
 left_column, middle_column, right_column = st.columns(3)
 with middle_column:
     st.title("CYBERSECURITY")
+    st.markdown("##")
 with st.container():
     st_lottie(lottie_header, height=200, key="header")
+    st.markdown("##")
     st.write(
         """
         Cybersecurity adalah kumpulan teknologi, proses, dan praktik yang terlibat dalam melindungi individu dan organisasi dari cyber crime.
@@ -72,13 +83,3 @@ with st.container():
         st.write("[Learn More >](https://medium.com/@joepindar/five-principles-of-cybersecurity-back-to-basics-a8d1f0399d65)")
     with right_column:
         st.video("https://www.youtube.com/watch?v=hl1z7YYlHHY")
-
-# ---- HIDE STREAMLIT STYLE ----
-hide_st_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_st_style, unsafe_allow_html=True)

@@ -3,12 +3,21 @@ import streamlit as st
 from streamlit_lottie import st_lottie
 from PIL import Image
 
+# Emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 st.set_page_config(
     page_title="MELATI",
     page_icon=":blossom:",
     layout="wide"
 )
 
+# ---- LOCAL CSS ----
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("style/style.css")
+
+# Lottie Files: https://lottiefiles.com/
 # ---- LOAD ASSETS ----
 def load_lottiefile(filepath: str):
     with open(filepath, "r") as f:
@@ -30,6 +39,7 @@ with st.sidebar:
         st_lottie(lottie_thanks, height=200, key="thanks")
 
 st.title("Conclusion")
+st.markdown("##")
 
 with st.container():
     left_column, right_column = st.columns(2)
@@ -89,12 +99,10 @@ with st.container():
         st.write("[Learn More >](https://www.ocsia.im/advice-guidance/5-steps-to-cyber-security/)")
 
 st.write("---")
-
 st.video("https://www.youtube.com/watch?v=HWJJTO5mOaw&t=5s")
 
-st.write("---")
-
 with st.container():
+    st.write("---")
     left_column, right_column = st.columns(2)
     with left_column:
         logo_patrolisiber = Image.open("./images/logo_patrolisiber.png")
@@ -105,12 +113,23 @@ with st.container():
         st.image(logo_bssn, width=300)
         st.write("[Learn More >](https://bssn.go.id/)")
 
-# ---- HIDE STREAMLIT STYLE ----
-hide_st_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_st_style, unsafe_allow_html=True)
+# ---- CONTACT ----
+with st.container():
+    st.write("---")
+    st.header("Get In Touch With Us")
+    
+    # Documention: https://formsubmit.co/
+    contact_form = """
+    <form action="https://formsubmit.co/stella.sumarli@gmail.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="email" name="email" placeholder="Your email" required>
+        <textarea name="message" placeholder="Your message here" required></textarea>
+        <button type="submit">Send</button>
+    </form>
+    """
+    left_column, right_column = st.columns(2)
+    with left_column:
+        st.markdown(contact_form, unsafe_allow_html=True)
+    with right_column:
+        st.empty()
