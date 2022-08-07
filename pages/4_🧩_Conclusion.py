@@ -1,7 +1,7 @@
-import json
-import streamlit as st
-from streamlit_lottie import st_lottie
-from PIL import Image
+import streamlit as st # pip install streamlit
+import json # pip install jsons
+from streamlit_lottie import st_lottie # pip install streamlit-lottie
+from PIL import Image # pip install Pillow
 
 # Emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 st.set_page_config(
@@ -23,7 +23,7 @@ def load_lottiefile(filepath: str):
     with open(filepath, "r") as f:
         return json.load(f)
 
-lottie_thanks = load_lottiefile("./lottiefiles/cyber_thanks_4.json")
+lottie_power = load_lottiefile("./lottiefiles/cyber_power.json")
 
 # ---- SIDEBAR ----
 with st.sidebar:
@@ -36,11 +36,10 @@ with st.sidebar:
             - Stella Sumarli
             """
         )
-        st_lottie(lottie_thanks, height=200, key="thanks")
+        st_lottie(lottie_power, height=200, key="power")
 
-st.title("Conclusion")
+st.markdown("<h1 style='text-align: center; color: gold;'>TIPS AND TRICKS</h1>", unsafe_allow_html=True)
 st.markdown("##")
-
 with st.container():
     left_column, right_column = st.columns(2)
     with left_column:
@@ -93,43 +92,89 @@ with st.container():
                 - Perangkat kedaluwarsa yang tidak lagi menerima pembaruan harus diganti.
                 """
             )
+        st.write("[Learn More >](https://www.ocsia.im/advice-guidance/5-steps-to-cyber-security/)")
     with right_column:
         image = Image.open("./images/prevention.jpg")
-        st.image(image)
-        st.write("[Learn More >](https://www.ocsia.im/advice-guidance/5-steps-to-cyber-security/)")
-
-st.write("---")
-st.video("https://www.youtube.com/watch?v=HWJJTO5mOaw&t=5s")
+        st.image(image, caption="Five Preventative Cyber Security Tips")
+        st.write("by: [dataversity](https://www.dataversity.net/seven-preventative-cyber-security-tips-smes-should-take-today/)")
 
 with st.container():
     st.write("---")
+    st.header("Aduan Siber")
+    st.markdown("##")
     left_column, right_column = st.columns(2)
     with left_column:
-        logo_patrolisiber = Image.open("./images/logo_patrolisiber.png")
-        st.image(logo_patrolisiber, width=100)
-        st.write("[Learn More >](https://www.patrolisiber.id/)")
+        st.video("https://www.youtube.com/watch?v=HWJJTO5mOaw&t=5s")
+        st.caption("Penanganan Insiden Siber | BSSN")
+        st.write("by: [Badan Siber dan Sandi Negara](https://www.youtube.com/channel/UC-sdNDpQOIZM0vBt6D8Hw8A)")
     with right_column:
+        alur_aduan_siber = Image.open("./images/alur_aduan_siber.jpg")
+        st.image(alur_aduan_siber, caption="Alur Aduan Insiden Siber", width=300)
+        st.write("by: [bssn](https://bssn.go.id/aduan-siber/)")
+    
+    left_column, right_column = st.columns(2)
+    with left_column:
         logo_bssn = Image.open("./images/logo_bssn.png")
         st.image(logo_bssn, width=300)
         st.write("[Learn More >](https://bssn.go.id/)")
+    with right_column:
+        logo_patrolisiber = Image.open("./images/logo_patrolisiber.png")
+        st.image(logo_patrolisiber, width=100)
+        st.write("[Learn More >](https://www.patrolisiber.id/)")
 
-# ---- CONTACT ----
 with st.container():
     st.write("---")
-    st.header("Get In Touch With Us")
-    
-    # Documention: https://formsubmit.co/
-    contact_form = """
-    <form action="https://formsubmit.co/stella.sumarli@gmail.com" method="POST">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="text" name="name" placeholder="Your name" required>
-        <input type="email" name="email" placeholder="Your email" required>
-        <textarea name="message" placeholder="Your message here" required></textarea>
-        <button type="submit">Send</button>
-    </form>
-    """
+    st.header("Daftar Pustaka")
+    st.markdown("##")
+    st.subheader("Artikel:")
+    st.write(
+        """
+        - https://bssn.go.id/aduan-siber/
+        - https://medium.com/@joepindar/five-principles-of-cybersecurity-back-to-basics-a8d1f0399d65
+        - https://www.cisco.com/c/en/us/products/security/common-cyberattacks.html#~how-cyber-attacks-work
+        - https://www.cisco.com/c/en/us/products/security/what-is-cybersecurity.html
+        - https://www.dataversity.net/seven-preventative-cyber-security-tips-smes-should-take-today/
+        - https://www.geeksforgeeks.org/history-of-cyber-security/#:~:text=The%20Cybersecurity%20checking%20began%20in,which%20chased%20and%20deleted%20Creepers.
+        - https://www.ocsia.im/advice-guidance/5-steps-to-cyber-security/
+        - https://www.stealthlabs.com/blog/cyber-security-threats-all-you-need-to-know/
+        - https://www.upguard.com/blog/cyber-threat
+        """
+    )
+    st.subheader("Media:")
+    st.write(
+        """
+        - https://bssn.go.id/wp-content/uploads/2021/10/alur-aduan-siber.jpg
+        - https://dv-website.s3.amazonaws.com/uploads/2019/01/Dataversity2_1reasons.jpg
+        - https://www.stealthlabs.com/wp-content/uploads/2020/12/types-of-cybersecurity-threats.jpg
+        - https://www.youtube.com/watch?v=hl1z7YYlHHY
+        - https://www.youtube.com/watch?v=HWJJTO5mOaw&t=5s
+        """
+    )
+
+with st.container():
+    st.write("---")
+    st.header("Thank You")
+    st.markdown("##")
     left_column, right_column = st.columns(2)
     with left_column:
-        st.markdown(contact_form, unsafe_allow_html=True)
+        logo_wit_s = Image.open("./images/logo_wit_s.jpg")
+        st.image(logo_wit_s, width=300)
+        st.write("Women in Tech - S")
     with right_column:
-        st.empty()
+        logo_wit_2022 = Image.open("./images/logo_wit_2022.jpg")
+        st.image(logo_wit_2022, width=300)
+        st.write("Women in Tech - Thematic Academy 2022")
+
+    left_column, middle_column, right_column = st.columns(3)
+    with left_column:
+        logo_netacad = Image.open("./images/logo_netacad.png")
+        st.image(logo_netacad, width=150)
+        st.write("[Learn More >](https://www.netacad.com/)")
+    with middle_column:
+        logo_digitalent = Image.open("./images/logo_digitalent.png")
+        st.image(logo_digitalent, width=50)
+        st.write("[Learn More >](https://digitalent.kominfo.go.id/)")
+    with right_column:
+        logo_kominfo = Image.open("./images/logo_kominfo.png")
+        st.image(logo_kominfo, width=300)
+        st.write("[Learn More >](https://www.kominfo.go.id/)")

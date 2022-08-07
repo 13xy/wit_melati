@@ -1,8 +1,9 @@
-import streamlit as st
-import pandas as pd
-import plotly.express as px
-import base64
-from io import StringIO, BytesIO
+import streamlit as st # pip install streamlit
+import pandas as pd # pip install pandas
+import plotly.express as px # pip install plotly-express
+import base64 # pip install pybase64
+from io import StringIO, BytesIO # pip install requires.io, pip install csv342, pip install bytesbufio
+# pip install openpyxl, pip install xlrd, pip install plotly
 
 # Emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 st.set_page_config(
@@ -72,7 +73,7 @@ df_selection = df.query(
 
 # Icons: https://icons.getbootstrap.com/
 # ---- MAINPAGE ----
-st.title(":bar_chart: Threats Dashboard")
+st.markdown("<h1 style='text-align: center; color: green;'>Data Dashboard</h1>", unsafe_allow_html=True)
 st.markdown("##")
 
 # ---- TOP TOTAL ----

@@ -1,8 +1,8 @@
-import json
-import streamlit as st
-from streamlit_lottie import st_lottie
-from PIL import Image
-from streamlit_option_menu import option_menu
+import streamlit as st # pip install streamlit
+import json # pip install jsons
+from streamlit_lottie import st_lottie # pip install streamlit-lottie
+from PIL import Image # pip install Pillow
+from streamlit_option_menu import option_menu # pip install streamlit-option-menu
 
 # Emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 st.set_page_config(
@@ -24,13 +24,13 @@ def load_lottiefile(filepath: str):
     with open(filepath, "r") as f:
         return json.load(f)
 
-lottie_thinking = load_lottiefile("./lottiefiles/cyber_thinking_2.json")
-lottie_attacks_1 = load_lottiefile("./lottiefiles/cyber_threats_2.json")
-lottie_attacks_2 = load_lottiefile("./lottiefiles/cyber_attacks_2.json")
+lottie_girl = load_lottiefile("./lottiefiles/cyber_girl.json")
+lottie_threats = load_lottiefile("./lottiefiles/cyber_threats.json")
+lottie_attacks = load_lottiefile("./lottiefiles/cyber_attacks.json")
 
 # ---- SIDEBAR ----
 with st.sidebar:
-    st_lottie(lottie_thinking, height=200, key="thinking")
+    st_lottie(lottie_girl, height=200, key="girl")
 
 # ---- HORIZONTAL MENU ----
 selected = option_menu(
@@ -41,7 +41,7 @@ selected = option_menu(
     default_index=0,
     orientation="horizontal",
     styles={
-        "container": {"padding": "0!important", "background-color": "#fafafa"},
+       "container": {"padding": "0!important", "background-color": "#fafafa"},
         "icon": {"color": "orange", "font-size": "25px"},
         "nav-link": {
             "font-size": "25px",
@@ -55,7 +55,7 @@ selected = option_menu(
 
 # ---- THREATS SECTION ----
 if selected == "Cyber Threats":
-    st.title("Cyber Threats")
+    st.markdown("<h1 style='text-align: center; color: crimson;'>CYBER THREATS</h1>", unsafe_allow_html=True)
     st.markdown("##")
     with st.container():
         left_column, right_column = st.columns(2)
@@ -69,7 +69,8 @@ if selected == "Cyber Threats":
             st.write("[Learn More >](https://www.upguard.com/blog/cyber-threat)")
         with right_column:
             image = Image.open("./images/cyber_threats.jpg")
-            st.image(image)
+            st.image(image, caption="Types of Cybersecurity Threats")
+            st.write("by: [stealthlabs](https://www.stealthlabs.com/blog/cyber-security-threats-all-you-need-to-know/)")
 
     with st.container():
         st.write(
@@ -110,12 +111,12 @@ if selected == "Cyber Threats":
 
 # ---- ATTACKS SECTION ----
 if selected == "Cyber Attacks":
-    st.title("Cyber Attacks")
+    st.markdown("<h1 style='text-align: center; color: crimson;'>CYBER ATTACKS</h1>", unsafe_allow_html=True)
     st.markdown("##")
     with st.container():
         left_column, right_column = st.columns(2)
         with left_column:
-            st_lottie(lottie_attacks_1, height=300, key="attacks_1")
+            st_lottie(lottie_threats, height=300, key="threats")
         with right_column:
             st.write(
                 """
@@ -158,4 +159,4 @@ if selected == "Cyber Attacks":
                 st.info("Kerentanan aplikasi web yang sangat umum dieksploitasi yang memungkinkan peretas jahat mencuri dan mengubah data dalam database situs web.")
             elif types == "Zero-day Exploit":
                 st.info("Kerentanan dalam sistem atau perangkat yang telah diungkapkan tetapi belum ditambal.")
-            st_lottie(lottie_attacks_2, height=300, key="attacks_2")
+            st_lottie(lottie_attacks, height=300, key="attacks")

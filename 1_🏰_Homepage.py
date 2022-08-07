@@ -1,6 +1,6 @@
-import json
-import streamlit as st
-from streamlit_lottie import st_lottie
+import streamlit as st # pip install streamlit
+import json # pip install jsons
+from streamlit_lottie import st_lottie # pip install streamlit-lottie
 
 # Emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 st.set_page_config(
@@ -22,10 +22,10 @@ def load_lottiefile(filepath: str):
     with open(filepath, "r") as f:
         return json.load(f)
 
-lottie_welcome = load_lottiefile("./lottiefiles/cyber_welcome_1.json")
-lottie_flower = load_lottiefile("./lottiefiles/cyber_flower_1.json")
-lottie_header = load_lottiefile("./lottiefiles/cyber_header_1.json")
-lottie_body = load_lottiefile("./lottiefiles/cyber_body_1.json")
+lottie_welcome = load_lottiefile("./lottiefiles/cyber_welcome.json")
+lottie_flower = load_lottiefile("./lottiefiles/cyber_flower.json")
+lottie_header = load_lottiefile("./lottiefiles/cyber_header.json")
+lottie_body = load_lottiefile("./lottiefiles/cyber_body.json")
 
 # ---- SIDEBAR ----
 with st.sidebar:
@@ -33,10 +33,8 @@ with st.sidebar:
     st_lottie(lottie_flower, height=200, key="flower")
 
 # ---- HEADER SECTION ----
-left_column, middle_column, right_column = st.columns(3)
-with middle_column:
-    st.title("CYBERSECURITY")
-    st.markdown("##")
+st.markdown("<h1 style='text-align: center; color: silver;'>CYBERSECURITY</h1>", unsafe_allow_html=True)
+st.markdown("##")
 with st.container():
     st_lottie(lottie_header, height=200, key="header")
     st.markdown("##")
@@ -51,9 +49,10 @@ with st.container():
 # ---- BODY SECTION ----
 with st.container():
     st.write("---")
+    st.header("History of Cybersecurity")
+    st.markdown("##")
     left_column, right_column = st.columns(2)
     with left_column:
-        st.header("History of Cybersecurity")
         st.write(
             """
             Pengecekan cybersecurity dimulai pada tahun 1970-an ketika peneliti Bob Thomas membuat program komputer yang disebut Creeper, yang dapat bergerak melintasi jaringan ARPANET.
@@ -68,6 +67,7 @@ with st.container():
 with st.container():
     st.write("---")
     st.header("Five Principles of Cybersecurity")
+    st.markdown("##")
     left_column, right_column = st.columns(2)
     with left_column:
         st.write(
@@ -83,3 +83,5 @@ with st.container():
         st.write("[Learn More >](https://medium.com/@joepindar/five-principles-of-cybersecurity-back-to-basics-a8d1f0399d65)")
     with right_column:
         st.video("https://www.youtube.com/watch?v=hl1z7YYlHHY")
+        st.caption("FIVE PRINCIPLES OF CYBERSECURITY - Back to Basics")
+        st.write("by: [A Spoonful of Joe](https://www.youtube.com/user/TheIGNet)")
