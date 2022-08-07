@@ -133,7 +133,7 @@ if selected == "Cyber Attacks":
         left_column, right_column = st.columns(2)
         with left_column:
             types = st.radio(
-                "Types of cyber attacks:",
+                "Jenis-jenis cyber attacks:",
                 ("Advanced Persistent Threat (APT)",
                 "Backdoor",
                 "Buffer Overflow",

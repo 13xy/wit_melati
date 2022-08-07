@@ -100,7 +100,7 @@ with st.container():
 
 with st.container():
     st.write("---")
-    st.header("Aduan Siber")
+    st.header("Cyber Crime Complaint")
     st.markdown("##")
     left_column, right_column = st.columns(2)
     with left_column:
@@ -124,9 +124,9 @@ with st.container():
 
 with st.container():
     st.write("---")
-    st.header("Daftar Pustaka")
+    st.header("References")
     st.markdown("##")
-    st.subheader("Artikel:")
+    st.subheader("Article:")
     st.write(
         """
         - https://bssn.go.id/aduan-siber/

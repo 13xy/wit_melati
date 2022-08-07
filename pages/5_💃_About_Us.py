@@ -2,7 +2,6 @@ import streamlit as st # pip install streamlit
 import json # pip install jsons
 from streamlit_lottie import st_lottie # pip install streamlit-lottie
 from PIL import Image # pip install Pillow
-from streamlit_option_menu import option_menu # pip install streamlit-option-menu
 
 # Emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 st.set_page_config(
@@ -52,7 +51,7 @@ with st.sidebar:
 st.markdown("<h1 style='text-align: center; color: deeppink;'>ABOUT US</h1>", unsafe_allow_html=True)
 st.markdown("##")
 st.header("We are Team Melati")
-st.write("##")
+st.markdown("##")
 st.write("Perkenalkan, kami dari team Melati.")
 st.write(
     """
@@ -68,84 +67,71 @@ st.write(
 with st.container():
     st.write("---")
     st.header("Our People")
-    st.write("##")
+    st.markdown("##")
     left_column, middle_column, right_column = st.columns(3)
     with left_column:
         image1 = Image.open("./images/tanti.jpg")
         st.image(image1, caption="Kushartanti Alifah")
+        st.write("[LinkedIn >](http://linkedin.com/in/kushartanti-alifah)")
     with middle_column:
-        image2 = Image.open("./images/second.jpg")
-        st.image(image2, caption="Ani Siti Fatimah")
+        image2 = Image.open("./images/ani.jpeg")
+        new_image2 = image2.resize((400, 400))
+        st.image(new_image2, caption="Ani Siti Fatimah")
+        st.write("[Instagram >](https://instagram.com/anistf_22?igshid=YmMyMTA2M2Y=)")
     with right_column:
         image_stella = Image.open("./images/stella.jpg")
         st.image(image_stella, caption="Stella Sumarli")
+        st.write("[LinkedIn >](https://www.linkedin.com/in/stella-sumarli-35b0ba18b)")
 
-# ---- HORIZONTAL MENU ----
-selected = option_menu(
-    menu_title=None,
-    options=["TANTI", "ANI", "STELLA"],
-    icons=["emoji-sunglasses", "emoji-heart-eyes", "emoji-wink"],
-    menu_icon="cast",
-    default_index=0,
-    orientation="horizontal",
-    styles={
-        "container": {"padding": "0!important", "background-color": "#fafafa"},
-        "icon": {"color": "green", "font-size": "25px"},
-        "nav-link": {
-            "font-size": "25px",
-            "text-align": "left",
-            "margin": "0px",
-            "--hover-color": "#eee",
-        },
-        "nav-link-selected": {"background-color": "deeppink"},
-    },
-)
-
-# ---- TANTI ----
-if selected == "TANTI":
-    st.subheader("Hi, I am Kushartanti Alifah :wave:")
-    st.markdown("##")
-    st.write("[LinkedIn >](http://linkedin.com/in/kushartanti-alifah)")
-
-# ---- ANI ----
-if selected == "ANI":
-    st.subheader("Hi, I am Ani Siti Fatimah :wave:")
-    st.markdown("##")
-
-# ---- STELLA ----
-if selected == "STELLA":
-    st.subheader("Hi, I am Stella Sumarli :wave:")
+with st.container():
+    st.write("---")
+    st.header("Our Experience")
     st.markdown("##")
     st.write(
         """
-        Saya sangat menyukai tentang semua hal yang berkaitan tentang bidang teknologi komputer.
-        Walaupun saya mempunyai latar belakang pendidikan di bidang teknologi komputer, tetapi saya belum pernah mempelajari mengenai bahasa pemrograman Python secara khusus dan resmi.
-        Oleh karena itu, saya sangat senang sekali saat mengetahui bahwa saya terpilih menjadi salah satu peserta Pelatihan Women in Tech: Cybersecurity and Python Periode 4 Juli - 8 Agustus 2022.
-        Pelatihan ini sangat membantu saya mempelajari algoritma pemrograman, library, dan syntax dari Python.
-        Selain itu, pada bagain kedua saya juga mempelajari cybersecurity dari tingkat dasar (literasi).
-        Pengetahuan tentang cybersecurity ini sangat membantu saya untuk memahami macam-macam cyber attack dalam kehidupan sehari-hari, serta cara untuk menghindarinya.
+        1. Aplikasi discord -> tipe penyerangan pishing and scamming.
+            Kronologi ada user discord yang berada dalam satu server yang sama dan mengirimkan chat spamming kepada setiap user yang berada di server itu.
+            Nah di dalam chat nya seperti berikut ini, ex : FREE GIVEAWAY lalu ada URL (disc0rd.gg/free).
+            Link URL dibuat menyerupai URL asli dari discord yaitu (discord.gg).
+            Setelah korban mengklik URL tersebut maka diarahkan ke dalam web dan dimintai untuk memasukkan password.
+            Setelah korban memasukkan password dan email maka saat itu juga akun korban sudah pindah tangan kepada tersangka.
+            Yang di mana tersangka ini menggunakan akun korban, sama seperti akun yang lain yaitu melakukan chat spamming yang berisi link phising dan scam.
+        2. Free bitcoin -> tipe penyerangan scamming.
+            Kronologi terdapat suatu web yang di mana kita melakukan sign in kita akan mendapatkan free bitcoin dan juga mendapatkan 1 mode mining yang di mana terdapat banyak mode mining.
+            Namun untuk menggunakan mode mining lainnya kita perlu membayar.
+            Untuk kecepatan mode mining yang free sangatlah lambat dibandingkan dengan yang berbayar.
+            Lalu ada user yang terkena scam dengan melakukan deposito dan membeli mode mining yang tercepat dengan total kerugian 400.000.
+            Setelah membeli memang benar mode mining tersebut langsung bisa digunakan.
+            Namun dalam kurun waktu 1 minggu, website tersebut tidak bisa diakses kembali.
+            Maka uang yang telah dideposito kan ke website tersebut hilang dan terjadi scamming dari pelaku kepada user korban.
         """
     )
+    st.subheader("Solution:")
     st.write(
         """
-        Terkait cybersecurity di kehidupan sehari-hari, saya pernah menyaksikan pengalaman salah seorang rekan kerja saya dalam menghadapi cyber attack di tempat kerja.
-        Beberapa tahu yang lalu, rekan kerja saya pernah terkena cyber attack melalui email, yang sering disebut sebagai phishing.
-        Beliau mendapatkan email yang berisikan subjek terkait perkerjaan.
-        Setelah email tersebut dibuka, secara otomatis data yang ada di komputer yang dipakai untuk membuka email tersebut langsung tidak bisa diakses kembali.
-        Di email tersebut disebutkan apabila kami masih ingin mendapatkan data-data berharga tersebut, kami harus mengikuti arahan mereka dengan memberikan sejumlah uang.
-        Pada awalnya, rekan kerja saya tersebut merasa panik dan bersalah karena sudah membuka email secara ceroboh dan kurang hati-hati.
-        Kemudian beliau melaporkan kejadian tersebut ke atasan kami.
-        Setelah menjelaskan rincian kejadiannya, atasan kami melaporkan ke kantor pusat.
-        Dan setelah melalui berbagai diskusi dan pertimbangan yang panjang, kantor pusat membantu untuk menyelesaikan masalah tersebut.
+        1. Lakukan password recovery via email.
+        2. Aktifkan 2FA(two factor authentication).
+        3. Unlink all device yang telah login.
+        4. Laporkan ke pihak yang berwenang, yang mampu menangani cyber attack dengan sigap dan tanggap.
+        5. Relakan (Sudah tidak bisa balik lagi).
         """
     )
-    st.write("[LinkedIn >](https://www.linkedin.com/in/stella-sumarli-35b0ba18b)")
+    st.subheader("Prevention:")
+    st.write(
+        """
+        1. Memperbarui software.
+        2. Gunakan password yang kuat dan unik.
+        3. Backup data.
+        4. Aktifkan 2FA.
+        5. Gunakan VPN saat melakukan koneksi melalui wifi publik.
+        """
+    )
 
 # ---- CONTACT ----
 with st.container():
     st.write("---")
     st.header("Get In Touch With Us")
-    st.write("##")
+    st.markdown("##")
     
     # Documention: https://formsubmit.co/
     contact_form = """

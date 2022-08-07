@@ -4,6 +4,8 @@ import plotly.express as px # pip install plotly-express
 import base64 # pip install pybase64
 from io import StringIO, BytesIO # pip install requires.io, pip install csv342, pip install bytesbufio
 # pip install openpyxl, pip install xlrd, pip install plotly
+import altair as alt # pip install altair
+from PIL import Image # pip install Pillow
 
 # Emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 st.set_page_config(
@@ -71,7 +73,6 @@ df_selection = df.query(
     "Tahun == @tahun & Bulan == @bulan & Threats == @threats"
 )
 
-# Icons: https://icons.getbootstrap.com/
 # ---- MAINPAGE ----
 st.markdown("<h1 style='text-align: center; color: green;'>Data Dashboard</h1>", unsafe_allow_html=True)
 st.markdown("##")
@@ -152,3 +153,60 @@ with st.container():
     with right_column:
         st.plotly_chart(fig_tahun_bulan, use_container_width=True)
         generate_html_download_link(fig_tahun_bulan)
+
+# ---- FORECASTING ----
+# ---- READ EXCEL FORECAST ----
+df = pd.read_excel(
+    io="./data/forecasting_trojan.xlsx",
+    engine="openpyxl",
+    sheet_name="trojan_activity",
+    skiprows=3,
+    usecols="B:N",
+    nrows=10,
+)
+
+# Icons: https://icons.getbootstrap.com/
+# ---- MAIN FORECAST ----
+with st.container():
+    st.write("---")
+    st.header(":eye: Forecast Trojan")
+    st.markdown("##")
+
+st.write("Silakan pilih :")
+tahun = st.multiselect(
+    "Pilih Tahun :",
+    options=df["Tahun"].unique(),
+    default=df["Tahun"].unique()
+)
+
+df_selection = df.query(
+    "Tahun == @tahun"
+)
+
+# ---- LINE CHART ----
+df_new = df_selection.melt('Tahun', var_name='Bulan', value_name='Value')
+
+chart = alt.Chart(df_new).mark_line().encode(
+  x=alt.X('Bulan:N'),
+  y=alt.Y('Value:Q'),
+  color=alt.Color("Tahun:N")
+).properties(title="Forecast Trojan")
+
+with st.container():
+    st.markdown("##")
+    st.write("---")
+    st.write("Berikut adalah Forecast Trojan Chart untuk tahun : ")
+    st.caption(tahun)
+    st.markdown("##")
+    st.altair_chart(chart, use_container_width=True)
+
+with st.container():
+    st.write("---")
+    st.markdown("##")
+    left_column, right_column = st.columns(2)
+    with left_column:
+        image1 = Image.open("./images/fitted_value_HW1.png")
+        st.image(image1, caption="Fitted Value HW1")
+    with right_column:
+        image2 = Image.open("./images/forecast_trojan.png")
+        st.image(image2, caption="Forecast Trojan from HoltWinters")
