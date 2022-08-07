@@ -10,9 +10,6 @@ st.set_page_config(
     layout="wide"
 )
 
-# ---- CACHING ----
-@st.cache(suppress_st_warning=True)
-
 # ---- LOCAL CSS ----
 def local_css(file_name):
     with open(file_name) as f:
