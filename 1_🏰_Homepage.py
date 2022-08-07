@@ -25,10 +25,10 @@ def load_lottiefile(filepath: str):
     with open(filepath, "r") as f:
         return json.load(f)
 
-lottie_welcome = load_lottiefile("./lottiefiles/cyber_welcome.json")
-lottie_flower = load_lottiefile("./lottiefiles/cyber_flower.json")
-lottie_header = load_lottiefile("./lottiefiles/cyber_header.json")
-lottie_body = load_lottiefile("./lottiefiles/cyber_body.json")
+lottie_welcome = load_lottiefile("lottiefiles/cyber_welcome.json")
+lottie_flower = load_lottiefile("lottiefiles/cyber_flower.json")
+lottie_header = load_lottiefile("lottiefiles/cyber_header.json")
+lottie_body = load_lottiefile("lottiefiles/cyber_body.json")
 
 # ---- SIDEBAR ----
 with st.sidebar:
