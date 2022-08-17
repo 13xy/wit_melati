@@ -81,7 +81,7 @@ with st.container():
     with right_column:
         image_stella = Image.open("./images/stella.jpg")
         st.image(image_stella, caption="Stella Sumarli")
-        st.write("[LinkedIn >](https://www.linkedin.com/in/stella-sumarli-35b0ba18b)")
+        st.write("[LinkedIn >](www.linkedin.com/in/stella-sumarli)")
 
 with st.container():
     st.write("---")
